@@ -92,6 +92,8 @@ struct ControlPanel: View {
             .padding(.vertical, 8)
         }
         .frame(width: 340)
+        .fixedSize(horizontal: false, vertical: true)
+        .background(GeometryReader { WindowFitter(height: $0.size.height) })
     }
 
     private var eqSummary: String {
@@ -114,6 +116,53 @@ struct ControlPanel: View {
     private var powerSummary: String {
         if let t = buds.powerTimer, t != 0xFFFF { return String(format: L("Off in %d min"), Int(t)) }
         return L("Timer off")
+    }
+}
+
+/// The MenuBarExtra window keeps the height the panel had before it shrank
+/// (connected → buds back in the case), leaving a see-through band above the
+/// content. Snap the window to the content, keeping its top under the menu bar,
+/// whenever the content changes size and each time the panel is opened.
+struct WindowFitter: NSViewRepresentable {
+    var height: CGFloat
+
+    func makeNSView(context: Context) -> NSView { NSView() }
+
+    func updateNSView(_ view: NSView, context: Context) {
+        context.coordinator.height = height
+        DispatchQueue.main.async { context.coordinator.attach(to: view.window) }
+    }
+
+    func makeCoordinator() -> Coordinator { Coordinator() }
+
+    final class Coordinator {
+        var height: CGFloat = 0
+        private weak var window: NSWindow?
+        private var observer: NSObjectProtocol?
+
+        func attach(to window: NSWindow?) {
+            guard let window else { return }
+            if window !== self.window {
+                if let observer { NotificationCenter.default.removeObserver(observer) }
+                self.window = window
+                observer = NotificationCenter.default.addObserver(
+                    forName: NSWindow.didBecomeKeyNotification, object: window, queue: .main
+                ) { [weak self] _ in self?.fit() }
+            }
+            fit()
+        }
+
+        private func fit() {
+            guard let window, height > 0 else { return }
+            let content = window.contentRect(forFrameRect: window.frame)
+            guard abs(content.height - height) > 0.5 else { return }
+            let fitted = NSRect(x: content.minX, y: content.maxY - height, width: content.width, height: height)
+            window.setFrame(window.frameRect(forContentRect: fitted), display: true)
+        }
+
+        deinit {
+            if let observer { NotificationCenter.default.removeObserver(observer) }
+        }
     }
 }
 
