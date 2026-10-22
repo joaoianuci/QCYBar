@@ -37,6 +37,8 @@
 "Disables touch until back in the case" = "Desactiva el táctil hasta volver al estuche";
 "Double tap" = "Doble toque";
 "Dynamic EQ" = "EQ dinámico";
+"Earbuds in the case" = "Auriculares en el estuche";
+"Earbuds not found" = "Auriculares no encontrados";
 "Eco mode" = "Modo Eco";
 "Equalizer" = "Ecualizador";
 "Factory reset" = "Restablecer de fábrica";
@@ -51,10 +53,11 @@
 "good" = "bueno";
 "Heavy bass" = "Graves potentes";
 "High" = "Alto";
-"If it does not connect, close the QCY app on your phone: the earbuds accept only one controller at a time." = "Si no se conecta, cierra la app QCY del móvil: los auriculares solo aceptan un controlador a la vez.";
+"In the case · charging" = "En el estuche · cargando";
 "Indoor" = "Interior";
 "L" = "I";
 "L/R gestures" = "Gestos I/D";
+"Last reading before the earbuds disconnected" = "Última lectura antes de que los auriculares se desconectaran";
 "LDAC" = "LDAC";
 "Left" = "Izquierdo";
 "Light" = "Suave";
@@ -105,7 +108,8 @@
 "Strength" = "Intensidad";
 "Strong" = "Fuerte";
 "Switches the mode automatically for your surroundings" = "Cambia el modo automáticamente según el entorno";
-"Take the earbuds out of the case to turn them on." = "Saca los auriculares del estuche para encenderlos.";
+"Take them out of the case. If they still do not connect, close the QCY app on your phone: the earbuds accept only one controller at a time." = "Sácalos del estuche. Si aún no se conectan, cierra la app QCY del móvil: los auriculares solo aceptan un controlador a la vez.";
+"Take them out to control them: they switch Bluetooth off while charging." = "Sácalos para controlarlos: apagan el Bluetooth mientras cargan.";
 "Tap" = "Toque";
 "Testing…" = "Probando…";
 "The earbuds will restart." = "Los auriculares se reiniciarán.";
@@ -115,6 +119,7 @@
 "Toward left" = "Más a la izquierda";
 "Toward right" = "Más a la derecha";
 "Triple tap" = "Triple toque";
+"Turn Bluetooth on in Control Center." = "Activa el Bluetooth en el Centro de control.";
 "Turn off" = "Apagar";
 "Turn off earbuds" = "Apagar auriculares";
 "Turn off in" = "Apagar en";

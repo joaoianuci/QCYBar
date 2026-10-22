@@ -19,7 +19,11 @@ final class Earbuds: NSObject, ObservableObject {
     @Published private(set) var name: String?
     @Published private(set) var model: UInt16?
     @Published private(set) var firmware: String?
-    @Published private(set) var battery: Battery?
+    @Published private(set) var battery: Battery? {
+        didSet { batteryIsLastKnown = false }
+    }
+    /// The battery shown is what we read before the link dropped, not live.
+    @Published private(set) var batteryIsLastKnown = false
     @Published private(set) var anc: AncSetting?
     @Published private(set) var aiAnc: Bool?
     @Published private(set) var eqPreset: UInt8?
@@ -55,6 +59,13 @@ final class Earbuds: NSObject, ObservableObject {
     }
 
     var isConnected: Bool { status == .connected }
+
+    /// Both buds were charging when the link dropped: they are in the case,
+    /// where they switch their radio off until taken out.
+    var isInCase: Bool {
+        guard !isConnected, batteryIsLastKnown, let b = battery else { return false }
+        return b.left?.charging == true && b.right?.charging == true
+    }
 
     var ancScenes: [AncScene] { AncScene.scenes(forModel: model) }
 
@@ -420,6 +431,7 @@ extension Earbuds: CBCentralManagerDelegate {
         queue = []
         draining = false
         status = .searching
+        batteryIsLastKnown = battery != nil
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in self?.start() }
     }
 }

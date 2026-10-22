@@ -37,6 +37,8 @@
 "Disables touch until back in the case" = "Desativa os toques até voltar ao estojo";
 "Double tap" = "Toque duplo";
 "Dynamic EQ" = "EQ dinâmico";
+"Earbuds in the case" = "Fones no estojo";
+"Earbuds not found" = "Fones não encontrados";
 "Eco mode" = "Modo Eco";
 "Equalizer" = "Equalizador";
 "Factory reset" = "Restaurar de fábrica";
@@ -51,10 +53,11 @@
 "good" = "bom";
 "Heavy bass" = "Graves fortes";
 "High" = "Alto";
-"If it does not connect, close the QCY app on your phone: the earbuds accept only one controller at a time." = "Se não conectar, feche o app QCY do celular: os fones só aceitam um controlador por vez.";
+"In the case · charging" = "No estojo · carregando";
 "Indoor" = "Ambiente interno";
 "L" = "E";
 "L/R gestures" = "Gestos E/D";
+"Last reading before the earbuds disconnected" = "Última leitura antes de os fones desconectarem";
 "LDAC" = "LDAC";
 "Left" = "Esquerdo";
 "Light" = "Leve";
@@ -105,7 +108,8 @@
 "Strength" = "Intensidade";
 "Strong" = "Forte";
 "Switches the mode automatically for your surroundings" = "Troca o modo automaticamente conforme o ambiente";
-"Take the earbuds out of the case to turn them on." = "Tire os fones do estojo para ligá-los.";
+"Take them out of the case. If they still do not connect, close the QCY app on your phone: the earbuds accept only one controller at a time." = "Tire-os do estojo. Se ainda não conectarem, feche o app QCY do celular: os fones só aceitam um controlador por vez.";
+"Take them out to control them: they switch Bluetooth off while charging." = "Tire-os para controlar: eles desligam o Bluetooth enquanto carregam.";
 "Tap" = "Toque";
 "Testing…" = "Testando…";
 "The earbuds will restart." = "Os fones vão reiniciar.";
@@ -115,6 +119,7 @@
 "Toward left" = "Mais à esquerda";
 "Toward right" = "Mais à direita";
 "Triple tap" = "Toque triplo";
+"Turn Bluetooth on in Control Center." = "Ligue o Bluetooth na Central de Controle.";
 "Turn off" = "Desligar";
 "Turn off earbuds" = "Desligar fones";
 "Turn off in" = "Desligar em";

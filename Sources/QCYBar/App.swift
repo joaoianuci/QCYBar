@@ -174,6 +174,8 @@ struct Header: View {
                     BatteryChip(label: L("R"), value: b.right)
                     BatteryChip(label: L("Case"), value: b.caseBox)
                 }
+                .opacity(buds.batteryIsLastKnown ? 0.55 : 1)
+                .help(buds.batteryIsLastKnown ? L("Last reading before the earbuds disconnected") : "")
             }
         }
     }
@@ -204,6 +206,7 @@ struct Header: View {
         switch buds.status {
         case .bluetoothOff: return L("Bluetooth is off")
         case .unauthorized: return L("No Bluetooth permission")
+        case .searching where buds.isInCase: return L("In the case · charging")
         case .searching: return L("Looking for the earbuds…")
         case .connecting: return L("Connecting…")
         case .connected:
@@ -250,17 +253,36 @@ struct Disconnected: View {
     @EnvironmentObject var buds: Earbuds
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            if buds.status == .unauthorized {
-                Text(L("Allow Bluetooth access in System Settings › Privacy & Security › Bluetooth."))
-            } else {
-                Text(L("Take the earbuds out of the case to turn them on."))
-                Text(L("If it does not connect, close the QCY app on your phone: the earbuds accept only one controller at a time."))
-                    .foregroundStyle(.secondary)
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: message.icon)
+                .font(.system(size: 20))
+                .foregroundStyle(.secondary)
+                .frame(width: 26)
+            VStack(alignment: .leading, spacing: 3) {
+                Text(message.title).font(.callout.weight(.medium))
+                if let d = message.detail {
+                    Text(d).font(.caption).foregroundStyle(.secondary)
+                }
             }
+            Spacer(minLength: 0)
         }
-        .font(.callout)
         .fixedSize(horizontal: false, vertical: true)
+    }
+
+    private var message: (icon: String, title: String, detail: String?) {
+        switch buds.status {
+        case .unauthorized:
+            return ("lock.shield", L("No Bluetooth permission"), L("Allow Bluetooth access in System Settings › Privacy & Security › Bluetooth."))
+        case .bluetoothOff:
+            return ("bolt.horizontal.circle", L("Bluetooth is off"), L("Turn Bluetooth on in Control Center."))
+        case .connecting:
+            return ("antenna.radiowaves.left.and.right", L("Connecting…"), nil)
+        default:
+            if buds.isInCase {
+                return ("earbuds.case", L("Earbuds in the case"), L("Take them out to control them: they switch Bluetooth off while charging."))
+            }
+            return ("magnifyingglass", L("Earbuds not found"), L("Take them out of the case. If they still do not connect, close the QCY app on your phone: the earbuds accept only one controller at a time."))
+        }
     }
 }
 
